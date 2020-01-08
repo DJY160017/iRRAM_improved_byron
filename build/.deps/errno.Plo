@@ -1,0 +1,5 @@
+errno.lo: errno.cc /usr/include/stdc-predef.h ../include/iRRAM/errno.h
+
+/usr/include/stdc-predef.h:
+
+../include/iRRAM/errno.h:
