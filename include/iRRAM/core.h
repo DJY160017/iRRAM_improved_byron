@@ -26,6 +26,7 @@ MA 02111-1307, USA.
 #define IRRAM_CORE_H
 
 #include <cstdio>
+#include <cstdlib>
 #include <vector>
 #include <cfenv> //#include <fenv.h>
 #include <pthread.h>
@@ -33,6 +34,7 @@ MA 02111-1307, USA.
 #include <iRRAM/lib.h>
 #include <iRRAM/version.h>
 #include <iRRAM/cache.h>
+#include <iostream>
 
 namespace iRRAM {
 
@@ -77,7 +79,8 @@ struct Iteration {int prec_diff; Iteration (int p){prec_diff=p;}; };
 extern bool enableReiterate;
 extern bool alwaysenableReiterate;
 // inline void REITERATE(int p_diff){inReiterate = true; throw Iteration(p_diff); }
-#define REITERATE(x)   { if(iRRAM::enableReiterate && alwaysenableReiterate){inReiterate = true;throw Iteration(x);}};
+// #define REITERATE(x)   { if(iRRAM::enableReiterate && alwaysenableReiterate){inReiterate = true;throw Iteration(x);}};
+#define REITERATE(x)   { if(iRRAM::enableReiterate && alwaysenableReiterate){inReiterate = true;fprintf(stderr,"Iteration throw\n");}};
 
 //std::cout<<"enableiter:"<<iRRAM::enableReiterate<<" "; 
 
@@ -322,12 +325,11 @@ inline void sizetype_exact(sizetype& x)
 }
 
 /*Test whether  y<z; for y=z the result is allowed to be true OR false!  */
-inline int sizetype_less(const sizetype& y,const sizetype& z) 
-{ unsigned int mantissa;
+inline int sizetype_less(const sizetype& y,const sizetype& z) { 
+  unsigned int mantissa;
   if (iRRAM_unlikely(y.mantissa==0)) return 1;
   if (iRRAM_unlikely(z.mantissa==0)) return 0;
-  if (y.exponent>z.exponent) 
-  {
+  if (y.exponent>z.exponent) {
     mantissa=scale(z.mantissa,y.exponent-z.exponent);
     return (mantissa>=y.mantissa);
   } else {
@@ -422,12 +424,14 @@ while (true) {
 
   int p_end=0;
   try { result=iRRAM_compute(x...);   if ( iRRAM_likely(!iRRAM_infinite) ) break;}
-  catch ( Iteration it)  { p_end=ACTUAL_STACK.actual_prec+it.prec_diff; }
-  catch ( const iRRAM_Numerical_Exception exc)
-    {
+  catch ( Iteration it) { 
+    // p_end=ACTUAL_STACK.actual_prec+it.prec_diff; 
+    cerr << "WARN: iRRAM exception: need adjust precsion \n";
+  }
+  catch ( const iRRAM_Numerical_Exception exc) {
       cerr << "iRRAM exception: "<<iRRAM_error_msg[exc.type]<<"\n";
       throw iRRAM_Numerical_Exception (exc);
-    }
+  }
 
 	int prec_skip=0;
     	do {

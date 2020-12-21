@@ -415,7 +415,9 @@ inline void ext_mpfr_write(ext_mpfr_type z,int w)
 inline void ext_mpfr_duplicate_wo_init(ext_mpfr_type z1,ext_mpfr_type z2)
 {
   int q1=mpfr_get_prec(z1);
-  if (mpfr_get_prec(z2)< q1) mpfr_set_prec(z2,q1);
+  if (mpfr_get_prec(z2)< q1) {
+    mpfr_set_prec(z2,q1);
+  }
   mpfr_set(z2,z1,iRRAM_mpfr_rounding_mode);
 }
 
@@ -425,7 +427,9 @@ inline void ext_mpfr_duplicate_w_init(ext_mpfr_type z1,ext_mpfr_type *z2)
 /*  mpfr_init2(*z2,mpfr_get_prec(z1)); */
   int q1=mpfr_get_prec(z1);
   *z2=ext_mpfr_init();
-  if (mpfr_get_prec(*z2)< q1) mpfr_set_prec(*z2,q1);
+  if (mpfr_get_prec(*z2)< q1){
+    mpfr_set_prec(*z2,q1);
+  }
 /*  ext_mpfr_var_count +=1; */
   mpfr_set(*z2,z1,iRRAM_mpfr_rounding_mode);
 }

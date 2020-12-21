@@ -27,6 +27,7 @@ MA 02111-1307, USA.
 #include <gmp.h>
 #include <mpfr.h>
 #include <iRRAM/GMP_intrat.h>
+#include <stdio.h> 
 
 
 # ifndef BITS_PER_MP_LIMB
@@ -285,6 +286,8 @@ inline ext_mpfr_type ext_mpfr_init()
     mpfr_FreeVarCount -=1;
     z =mpfr_FreeVars[mpfr_FreeVarCount];
   } else {
+    // int size_mpfr = sizeof (__mpfr_struct);
+    // printf("test test size_mpfr = %d", size_mpfr);
     z = (ext_mpfr_type) malloc(sizeof (__mpfr_struct));
     mpfr_init(z);
   }

@@ -2,6 +2,7 @@
 #include <cstdlib>
 
 #include <iRRAM/core.h>
+#include <iostream>
 
 namespace iRRAM {
 
@@ -73,7 +74,13 @@ int exp_bound(const REAL& x)
 
 REAL exp (const REAL& x)
 {
-  if ( positive(x-750001,0)  ) {fprintf(stderr,"Overflow in exp(x)\n");exit(1);}
+  // if ( positive(x-750001,0)  ) {
+  //   std::string result = swrite(x, 100);
+  //   std::string ptr_str = "Overflow in exp("+result+")\n";
+  //   // fprintf(stderr,"Overflow in exp(x)\n");
+  //   fprintf(stderr,ptr_str.c_str());
+  //   exit(1);
+  // }
   single_valued code;
   REAL y= limit_lip(exp_approx,exp_bound,x);
   return y;

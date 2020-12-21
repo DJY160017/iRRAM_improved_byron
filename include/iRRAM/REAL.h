@@ -26,6 +26,7 @@ MA 02111-1307, USA.
 #define iRRAM_REAL_H
 
 #include <cmath>
+#include <iostream>
 
 #ifdef __SSE2__at_the_moment_not_used_due_to_alignment_problems_in_gcc_4_3
 #include <emmintrin.h>
@@ -392,34 +393,52 @@ inline REAL::~REAL()
 }
 
 inline REAL::REAL()
-{
+{   
+    // std::cout<<"REAL construct 1"<<std::endl;
     value=NULL;
     dp.lower_pos=0.0;
     dp.upper_neg=0.0;
-    if ( USE_HIGH_LEVEL ) mp_from_int(0);
+    if ( USE_HIGH_LEVEL ) {
+      // std::cout<<"REAL construct 1 USE_HIGH_LEVEL"<<std::endl;
+      mp_from_int(0);
+    }  
 }
 
 inline REAL::REAL(const int i)
 {
+    // std::cout<<"REAL construct 2"<<std::endl;
     value=NULL;
     dp.lower_pos=i;
     dp.upper_neg=-dp.lower_pos;
-    if ( USE_HIGH_LEVEL ) mp_from_int(i);
+    if ( USE_HIGH_LEVEL ) {
+      // std::cout<<"REAL construct 2 USE_HIGH_LEVEL"<<std::endl;
+       mp_from_int(i);
+    }
+   
 }
 
 inline REAL::REAL(const double d)
 {
+    // std::cout<<"REAL construct 3"<<std::endl;
     if ( !std::isfinite(d) ) throw iRRAM_Numerical_Exception(iRRAM_conversion_from_infinite);
     value=NULL;
     dp.lower_pos=d;
     dp.upper_neg=-dp.lower_pos;
-    if ( USE_HIGH_LEVEL ) mp_from_double(d);
+    if ( USE_HIGH_LEVEL ) {
+      // std::cout<<"REAL construct 3 USE_HIGH_LEVEL"<<std::endl;
+      mp_from_double(d);
+    }
+    
 }
 
 inline REAL::REAL(const REAL& y){
+    // std::cout<<"REAL construct 4"<<std::endl;
     value=NULL;
     dp=y.dp;
-    if ( iRRAM_unlikely(y.value) ) mp_copy_init(y);
+    if ( iRRAM_unlikely(y.value) ) {
+      // std::cout<<"REAL construct 4 USE_HIGH_LEVEL"<<std::endl;
+      mp_copy_init(y);
+    }
 }
 
 inline REAL& REAL::mp_conv()const{

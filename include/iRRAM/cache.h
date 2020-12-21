@@ -26,6 +26,7 @@ MA 02111-1307, USA.
 #define iRRAM_CACHE_H
 
 #include <string>
+#include <iostream>
 
 namespace iRRAM {
 
@@ -108,25 +109,25 @@ void activate(){
 
 };
 
-class iRRAM_thread_data_class { public:
-
-iRRAM_cache<bool,noclearfct> cache_b;
-iRRAM_cache<short,noclearfct> cache_sh;
-iRRAM_cache<unsigned short,noclearfct> cache_ush;
-iRRAM_cache<int,noclearfct> cache_i;
-iRRAM_cache<long,noclearfct> cache_l;
-iRRAM_cache<unsigned long,noclearfct> cache_ul;
-iRRAM_cache<double,noclearfct> cache_d;
-iRRAM_cache<long long,noclearfct> cache_ll;
-iRRAM_cache<unsigned int,noclearfct> cache_ui;
-iRRAM_cache<unsigned long long,noclearfct> cache_ull;
-iRRAM_cache<std::string,noclearfct> cache_s;
-iRRAM_cache<float,noclearfct> cache_f;
-iRRAM_cache<void*,noclearfct> cache_v;
-iRRAM_cache<MP_type,MPclear> cache_mp;
-iRRAM_cache<MP_int_type,MPIclear> cache_mpi;
-iRRAM_cache<std::ostream*,noclearfct> cache_os;
-iRRAM_cache<std::istream*,noclearfct> cache_is;
+class iRRAM_thread_data_class { 
+public:
+  iRRAM_cache<bool,noclearfct> cache_b;
+  iRRAM_cache<short,noclearfct> cache_sh;
+  iRRAM_cache<unsigned short,noclearfct> cache_ush;
+  iRRAM_cache<int,noclearfct> cache_i;
+  iRRAM_cache<long,noclearfct> cache_l;
+  iRRAM_cache<unsigned long,noclearfct> cache_ul;
+  iRRAM_cache<double,noclearfct> cache_d;
+  iRRAM_cache<long long,noclearfct> cache_ll;
+  iRRAM_cache<unsigned int,noclearfct> cache_ui;
+  iRRAM_cache<unsigned long long,noclearfct> cache_ull;
+  iRRAM_cache<std::string,noclearfct> cache_s;
+  iRRAM_cache<float,noclearfct> cache_f;
+  iRRAM_cache<void*,noclearfct> cache_v;
+  iRRAM_cache<MP_type,MPclear> cache_mp;
+  iRRAM_cache<MP_int_type,MPIclear> cache_mpi;
+  iRRAM_cache<std::ostream*,noclearfct> cache_os;
+  iRRAM_cache<std::istream*,noclearfct> cache_is;
 
 };
 

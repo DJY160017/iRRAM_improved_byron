@@ -27,6 +27,7 @@ MA 02111-1307, USA.
 #include <cstring>
 
 #include <iRRAM/core.h>
+#include <iostream>
 
 #if iRRAM_BACKEND_MPFR
 	#include "MPFR_ext.h"
